@@ -1,0 +1,8 @@
+/node_modules
+/model/data
+/model/training.ipynb
+/model/model_en.pkl
+/model/model_it.pkl
+Dockerfile
+.dockerignore
+/venv

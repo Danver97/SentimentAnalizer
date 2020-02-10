@@ -1,0 +1,135 @@
+<html lang="en" dir="ltr">
+    <head>
+        <title>Sentiment Analizer</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>
+            function displayResult(result) {
+                const values = {
+                    pos: 'Positive review',
+                    neg: 'Negative review',
+                    und: 'Undefined sentiment',
+                };
+                $('#result').html(values[result] || values.und);
+                $('#resultline').show();
+            }
+
+            function submitReview() {
+                console.log($('#review'));
+                const review = $('#review').val();
+                console.log('review: ', review);
+                const lang = $('#lang').val();
+                console.log('lang: ', lang);
+                $.ajax({
+                    type: 'POST',
+                    url: `http://localhost:3000/classify/${lang}`,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({ review }),
+                    success: (result) => {
+                        result = result.trim();
+                        console.log('Data successfully sent');
+                        console.log('result: ', result);
+                        displayResult(result)
+                    }
+                });
+            }
+        </script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+        <style>
+            h1, h2, h3, h4, h5, h6, p, label, select, button, textarea {
+                font-family: Montserrat, 'Times New Roman', serif;
+            }
+            h1, h2, h3, h4, h5, h6, #resultline {
+                font-weight: bold;
+                text-align: center;
+            }
+
+            #maincontainer {
+                width: 50%;
+                margin: 0 auto;
+            }
+
+            #maincontainer > p {
+                text-align: center;
+            }
+
+            #maincontainer > h1 {
+                color: rgb(0, 184, 110);
+            }
+
+            #inputcontainer {
+                margin: 0 auto;
+            }
+
+            #inputcontainer > button {
+                top:50%;
+                left:50%;
+            }
+            #inputcontainer > p {
+                text-align: left;
+            }
+
+            textarea {
+                max-width: 500px;
+                max-height:300px;
+                border: 0;
+                border-radius: 8px;
+                background-color: rgb(236, 236, 236);
+                outline: none;
+                padding: 12px;
+            }
+
+            select {
+                border: 0;
+                border-radius: 80px;
+                padding: 8px 12px;
+                background-color: rgb(236, 236, 236);
+                outline: none;
+            }
+
+            ::selection {
+                background: rgb(0, 209, 125);
+            }
+
+            button {
+                padding: 16px 24px;
+                background-color: #fff;
+                border: 0;
+                border-radius: 80px;
+                text-transform: uppercase;
+                font-weight: bold;
+                transition: all 0.3s ease 0s;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+                outline: none;
+            }
+            button:hover {
+                background-color: rgb(0, 209, 125);
+                box-shadow: 0px 8px 18px rgba(0, 209, 125, 0.6);
+                color: #fff;
+                transform: translateY(-2px);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="maincontainer">
+            <h1>Sentiment Analizer</h1>
+            <p>This project analize reviews of hotels telling if it is a positive or a negative review</p><br>
+            <p><label for="lang">Choose language:</label>
+            <select id="lang">
+                <option value="en">English</option>
+                <option value="it">Italian</option>
+            </select></p>
+            <p><label for="review">Insert review here (max 1000 chars):</label></p>
+            <p><textarea id="review" name="review" rows="4" cols="50" maxlength="1000"></textarea></p>
+            <p id="resultline" style="display: none;">Result: <span id="result"></span></p>
+            <p><button type="button" value="SUBMIT" onclick="submitReview()">Submit</button></p>
+
+            <br>
+            <h4>Some examples of reviews:</h4>
+            <p><span style="font-weight: bold;">English:</span> Claustrophobic and disappointing. Small rooms, old towels, considered cutting short our trip and moved to a different hotel. If you must book this hotel then would recommend splitting the booking as you will unable to get a refund through booking.com. Other hotels only 5 mins from this hotel are of much better standard.</p>
+            <p><span style="font-weight: bold;">Italian:</span> Ottimo hotel. La struttura è bella, le camere sono ampie e il personale molto disponibile. Ci sono stati alcuni rumori durante la notte, ma complessivamente è stato un buon soggiorno. Il prezzo è basso e non è molto distante dal centro. pochi minuti a piedi da tutte le principali attrazioni. sanitari puliti, lenzuola pulite.</p>
+        </div>
+    </body>
+</html>
