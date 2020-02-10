@@ -58,7 +58,7 @@ The two dataset were splitted in a training set (80% of records) and a test set 
 For the italian model the computed F1 score, was around 0.964.  
 For the english model the computed F1 score, was around 0.837. In this case there is room of improvement, such as better stopwords filtering and more data exploration, but the short time window available didn't allowed me to improve the model more since I had to care the webpage and the integration between node and python.
 
-The two trained model where persisted to file using the `pickle` native python library. Since I was working on a Windows machine, there's a chance that using linux `pickle` will have same incompatibilities with the persisted file. In this case, just train the models yourself using the training pipeline (1 minute execution):
+The two trained model where persisted to file using the `pickle` native python library. Since I was working on a Windows machine, there's a chance that using linux `pickle` will have same incompatibilities with the persisted files. In this case, just train the models yourself using the training pipeline (1 minute execution):
 ```shell
 python training.py
 ```
