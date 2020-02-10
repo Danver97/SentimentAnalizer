@@ -1,4 +1,4 @@
 /node_modules
 /venv
 **/*pkl
-./model/data/hotel_reviews_*.csv
+/model/data/hotel_reviews_*.csv
