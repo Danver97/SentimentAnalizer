@@ -1,6 +1,8 @@
 # Sentiment Analyzer
 A Node.Js web service for sentiment analysis. It analyze reviews of hotels and tells if they are `positive` or `negative`.
 
+![Preview](./Screenshot.png)
+
 ## Installation & running
 To install:
 ```shell
